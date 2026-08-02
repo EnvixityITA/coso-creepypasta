@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARCHIVIO MONUMENT // Database Anomalie</title>
+  <meta name="description" content="Terminale di archiviazione — documentazione recuperata su fenomeni analog horror.">
+
+  <!-- Font retro da Google Fonts: VT323 per i titoli, Share Tech Mono per il corpo del testo -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ============================================================
+       EFFETTI CRT — livelli sovrapposti, non intercettano il click
+       (pointer-events: none), puramente visivi. Vedi style.css
+       ============================================================ -->
+  <div class="crt-fx" id="crtFx" aria-hidden="true">
+    <div class="noise-overlay"></div>
+    <div class="crt-flicker"></div>
+    <div class="vignette"></div>
+    <div class="scan-sweep"></div>
+    <div class="scanlines"></div>
+  </div>
+
+  <div class="terminal-container">
+
+    <!-- ============================================================
+         HEADER — barra di stato, titolo con effetto glitch, avviso
+         ============================================================ -->
+    <header class="site-header">
+      <div class="header-bar">
+        <span class="rec-indicator"><span class="rec-dot"></span> REC</span>
+        <span class="header-clock" id="headerClock">--:--:--</span>
+        <span class="access-level">LIVELLO ACCESSO: OPERATORE</span>
+      </div>
+
+      <h1 class="main-title glitch-text" data-text="ARCHIVIO MONUMENT">ARCHIVIO MONUMENT</h1>
+      <p class="subtitle-warning">SISTEMA DI CATALOGAZIONE ANOMALIE // TRASMISSIONI RECUPERATE // NON DIVULGARE</p>
+    </header>
+
+    <!-- ============================================================
+         NAVIGAZIONE A TAB
+         Per aggiungere una nuova serie in futuro:
+           1) aggiungi un <button class="tab-btn" data-tab="ID-NUOVO" role="tab">
+           2) aggiungi una <section id="ID-NUOVO" class="tab-content" role="tabpanel">
+         script.js non richiede alcuna modifica: la logica è generica
+         e si applica automaticamente a ogni coppia bottone/sezione.
+         ============================================================ -->
+    <nav class="tab-nav" role="tablist" aria-label="Navigazione fascicoli archivio">
+      <button class="tab-btn active" data-tab="overview" role="tab" aria-selected="true" aria-controls="overview" id="tabbtn-overview">// SYSTEM</button>
+      <button class="tab-btn" data-tab="vita-carnis" role="tab" aria-selected="false" aria-controls="vita-carnis" id="tabbtn-vita-carnis">VITA CARNIS</button>
+      <button class="tab-btn" data-tab="mandela" role="tab" aria-selected="false" aria-controls="mandela" id="tabbtn-mandela">MANDELA CATALOGUE</button>
+      <button class="tab-btn" data-tab="local58" role="tab" aria-selected="false" aria-controls="local58" id="tabbtn-local58">LOCAL58</button>
+      <button class="tab-btn tab-btn--classified" data-tab="classified" role="tab" aria-selected="false" aria-controls="classified" id="tabbtn-classified">⚠ CLASSIFIED</button>
+    </nav>
+
+    <main class="tab-panels">
+
+      <!-- ============================================================
+           TAB 1 — OVERVIEW / SYSTEM
+           ============================================================ -->
+      <section id="overview" class="tab-content active" role="tabpanel" aria-labelledby="tabbtn-overview" tabindex="0">
+
+        <div class="alert-banner">
+          <span class="alert-icon">⚠</span>
+          <p>ATTENZIONE: l'accesso non autorizzato a questo terminale è monitorato e registrato. Ogni tentativo di intrusione viene segnalato al nodo di sorveglianza centrale. Procedendo, l'operatore accetta i termini del protocollo di riservatezza.</p>
+        </div>
+
+        <div class="panel">
+          <h2 class="panel-title">// LOG DI AVVIO</h2>
+          <div class="boot-log">
+            <p><span class="log-time">[00:00:01]</span> Inizializzazione terminale archivio... <span class="log-ok">OK</span></p>
+            <p><span class="log-time">[00:00:02]</span> Connessione ai sotto-archivi regionali... <span class="log-ok">OK</span></p>
+            <p><span class="log-time">[00:00:04]</span> Caricamento database anomalie... <span class="log-warn">3 VOCI CORROTTE</span></p>
+            <p><span class="log-time">[00:00:05]</span> Sincronizzazione registrazioni recuperate... <span class="log-ok">OK</span></p>
+            <p><span class="log-time">[00:00:06]</span> Verifica livello di autorizzazione... <span class="log-ok">CONCESSA — LIVELLO 1</span></p>
+            <p><span class="log-time">[00:00:07]</span> Sistema pronto. Benvenuto, operatore.<span class="cursor-blink">_</span></p>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2 class="panel-title">// DESCRIZIONE ARCHIVIO</h2>
+          <p>Questo terminale raccoglie e cataloga materiale audiovisivo recuperato relativo a fenomeni di natura non convenzionale, trasmissioni anomale e documentazione di dubbia origine. Il materiale è organizzato per fascicolo, in base alla fonte di provenienza.</p>
+          <p>Si ricorda al personale autorizzato che parte del contenuto archiviato può risultare disturbante o incompleta. Alcuni fascicoli sono ancora in fase di classificazione: la documentazione mancante non implica l'assenza del fenomeno, bensì il fallimento del recupero.</p>
+        </div>
+
+        <div class="panel">
+          <h2 class="panel-title">// ISTRUZIONI OPERATIVE</h2>
+          <ul class="instructions-list">
+            <li>Utilizzare la barra di navigazione in alto per selezionare il fascicolo desiderato.</li>
+            <li>Ogni fascicolo contiene: materiale video recuperato, schede identificative del fenomeno/entità e log testuali declassificati.</li>
+            <li>La sezione <strong>CLASSIFIED</strong> richiede un codice di autorizzazione di livello superiore per essere consultata.</li>
+            <li>In caso di disagio visivo, è possibile disattivare l'effetto di visualizzazione CRT dal pannello di controllo in fondo alla pagina.</li>
+          </ul>
+        </div>
+
+        <div class="panel">
+          <h2 class="panel-title">// STATO SISTEMA</h2>
+          <div class="stats-grid">
+            <div class="stat-item">
+              <span class="stat-label">FASCICOLI ATTIVI</span>
+              <span class="stat-value">03</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">LIVELLO MINACCIA GLOBALE</span>
+              <span class="stat-value threat-high">ELEVATO</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">ACCESSO CLASSIFIED</span>
+              <span class="stat-value threat-critical">BLOCCATO</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">ULTIMA SINCRONIZZAZIONE</span>
+              <span class="stat-value" id="lastSync">--</span>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ============================================================
+           TAB 2 — VITA CARNIS
+           ============================================================ -->
+      <section id="vita-carnis" class="tab-content" role="tabpanel" aria-labelledby="tabbtn-vita-carnis" tabindex="0">
+
+        <div class="series-header">
+          <h2 class="series-title glitch-text" data-text="VITA CARNIS">VITA CARNIS</h2>
+          <p class="series-code">FASCICOLO N. VC-04 // ORIGINE: IT // STATO: CLASSIFICAZIONE IN CORSO</p>
+        </div>
+
+        <p class="series-intro">Raccolta di materiale audiovisivo di origine italiana riconducibile al fenomeno noto come "Vita Carnis". La documentazione è parziale: numerosi frammenti risultano ancora da classificare, oppure sono stati recuperati in condizioni compromesse. Il nome in codice fa riferimento alla natura corporea e mutevole delle manifestazioni osservate.</p>
+
+        <div class="panel">
+          <h3 class="panel-title">// MATERIALE VIDEO RECUPERATO</h3>
+          <!-- Sostituisci i valori data-src con gli ID video YouTube reali (es. data-src="https://www.youtube.com/embed/ID_VIDEO") -->
+          <div class="video-grid">
+            <div class="video-card">
+              <div class="video-embed">
+                <iframe data-src="https://www.youtube.com/embed/VIDEO_ID_1" title="Vita Carnis — Episodio 1" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+              </div>
+              <p class="video-caption">EP. 01 — [Titolo da inserire]</p>
+            </div>
+            <div class="video-card">
+              <div class="video-embed">
+                <iframe data-src="https://www.youtube.com/embed/VIDEO_ID_2" title="Vita Carnis — Episodio 2" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+              </div>
+              <p class="video-caption">EP. 02 — [Titolo da inserire]</p>
+            </div>
+            <div class="video-card">
+              <div class="video-embed">
+                <iframe data-src="https://www.youtube.com/embed/VIDEO_ID_3" title="Vita Carnis — Episodio 3" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+              </div>
+              <p class="video-caption">EP. 03 — [Titolo da inserire]</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3 class="panel-title">// SCHEDA ENTITÀ / FENOMENO</h3>
+
+          <div class="data-sheet">
+            <div class="data-sheet-header">
+              <span class="entity-name">DESIGNAZIONE: [OSPITE]</span>
+              <span class="threat-badge threat-high">MINACCIA: ELEVATA</span>
+            </div>
+            <dl class="data-sheet-body">
+              <dt>Descrizione</dt>
+              <dd>Entità in grado di alterare la propria struttura corporea apparente. Le testimonianze raccolte non concordano sull'aspetto, suggerendo una natura instabile o dipendente dall'osservatore.</dd>
+              <dt>Comportamento osservato</dt>
+              <dd>Tendenza a manifestarsi in ambienti domestici isolati. Nessuna correlazione confermata con orario o condizioni meteorologiche.</dd>
+              <dt>Consigli di sopravvivenza</dt>
+              <dd>Evitare il contatto fisico con superfici organiche di origine non identificata. Interrompere immediatamente la visione di materiale correlato in caso di alterazioni percettive.</dd>
+            </dl>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3 class="panel-title">// LOG RECUPERATI</h3>
+          <div class="log-entries">
+            <div class="log-entry">
+              <p class="log-entry-header">DOCUMENTO #VC-014 — [PARZIALMENTE REDATTO]</p>
+              <p class="log-entry-body">"...il materiale è stato ritrovato senza indicazione della fonte originale. Si raccomanda il confronto con il fascicolo madre non appena disponibile. ██████████ non ha fornito ulteriori dettagli prima dell'interruzione della trasmissione..."</p>
+            </div>
+            <div class="log-entry">
+              <p class="log-entry-header">DOCUMENTO #VC-021 — NOTA OPERATORE</p>
+              <p class="log-entry-body">"Fascicolo aggiornato in attesa di ulteriore materiale. Si consiglia agli operatori di segnalare qualsiasi discrepanza tra le versioni archiviate: alcune copie del medesimo file presentano contenuti leggermente differenti tra loro."</p>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ============================================================
+           TAB 3 — THE MANDELA CATALOGUE
+           ============================================================ -->
+      <section id="mandela" class="tab-content" role="tabpanel" aria-labelledby="tabbtn-mandela" tabindex="0">
+
+        <div class="series-header">
+          <h2 class="series-title glitch-text" data-text="THE MANDELA CATALOGUE">THE MANDELA CATALOGUE</h2>
+          <p class="series-code">FASCICOLO N. MC-11 // ORIGINE: US // STATO: ATTIVO</p>
+        </div>
+
+        <p class="series-intro">Raccolta di nastri di addestramento, avvisi di sicurezza pubblica e materiale di sorveglianza riconducibili al fenomeno delle entità denominate "Alternates". Il fascicolo comprende protocolli di identificazione e regole di comportamento diffuse a scopo preventivo.</p>
+
+        <div class="panel">
+          <h3 class="panel-title">// MATERIALE VIDEO RECUPERATO</h3>
+          <div class="video-grid">
+            <div class="video-card">
+              <div class="video-embed">
+                <iframe data-src="https://www.youtube.com/embed/VIDEO_ID_4" title="Mandela Catalogue — Episodio 1" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+              </div>
+              <p class="video-caption">EP. 01 — [Titolo da inserire]</p>
+            </div>
+            <div class="video-card">
+              <div class="video-embed">
+                <iframe data-src="https://www.youtube.com/embed/VIDEO_ID_5" title="Mandela Catalogue — Episodio 2" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+              </div>
+              <p class="video-caption">EP. 02 — [Titolo da inserire]</p>
+            </div>
+            <div class="video-card">
+              <div class="video-embed">
+                <iframe data-src="https://www.youtube.com/embed/VIDEO_ID_6" title="Mandela Catalogue — Episodio 3" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+              </div>
+              <p class="video-caption">EP. 03 — [Titolo da inserire]</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3 class="panel-title">// SCHEDE ENTITÀ / FENOMENO</h3>
+
+          <div class="data-sheet">
+            <div class="data-sheet-header">
+              <span class="entity-name">DESIGNAZIONE: ALTERNATE</span>
+              <span class="threat-badge threat-critical">MINACCIA: CRITICA</span>
+            </div>
+            <dl class="data-sheet-body">
+              <dt>Descrizione</dt>
+              <dd>Entità capace di imitare l'aspetto e la voce di persone care, in particolare defunte o assenti, allo scopo di ottenere fiducia e prossimità con il soggetto bersaglio.</dd>
+              <dt>Segni distintivi</dt>
+              <dd>In condizioni di stress del "travestimento" possono comparire anomalie oculari: sclera completamente bianca o rossa. Movimenti talvolta innaturali o ritardati rispetto al parlato.</dd>
+              <dt>Consigli di sopravvivenza</dt>
+              <dd>Non mantenere il contatto visivo prolungato con figure non identificate. Verificare sempre l'identità di parenti o conoscenti tramite domande di controllo concordate in anticipo. Evitare ambienti isolati dopo l'esposizione a trasmissioni anomale.</dd>
+            </dl>
+          </div>
+
+          <div class="data-sheet">
+            <div class="data-sheet-header">
+              <span class="entity-name">PROTOCOLLO: NASTRI DI ADDESTRAMENTO</span>
+              <span class="threat-badge threat-moderate">MINACCIA: MODERATA (INDIRETTA)</span>
+            </div>
+            <dl class="data-sheet-body">
+              <dt>Descrizione</dt>
+              <dd>Materiale in formato VHS diffuso con l'obiettivo dichiarato di istruire il pubblico sul riconoscimento delle entità. L'origine e l'affidabilità di alcuni nastri restano contestate.</dd>
+              <dt>Consigli di sopravvivenza</dt>
+              <dd>Trattare ogni nastro non verificato con cautela: alcune copie in circolazione risultano alterate rispetto all'originale dichiarato.</dd>
+            </dl>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3 class="panel-title">// LOG RECUPERATI</h3>
+          <div class="log-entries">
+            <div class="log-entry">
+              <p class="log-entry-header">DOCUMENTO #MC-003 — AVVISO DI SICUREZZA PUBBLICA</p>
+              <p class="log-entry-body">"Ai residenti dell'area interessata: in caso di contatto con un familiare ritenuto defunto, non fornire informazioni personali fino a verifica completata. Segnalare immediatamente l'episodio al numero di riferimento locale."</p>
+            </div>
+            <div class="log-entry">
+              <p class="log-entry-header">DOCUMENTO #MC-017 — TRASCRIZIONE PARZIALE</p>
+              <p class="log-entry-body">"...la regola dei tre secondi resta il metodo di verifica più citato nei nastri recuperati, sebbene la sua reale efficacia non sia stata confermata da fonti indipendenti. Si prosegue con cautela..."</p>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ============================================================
+           TAB 4 — LOCAL58
+           ============================================================ -->
+      <section id="local58" class="tab-content" role="tabpanel" aria-labelledby="tabbtn-local58" tabindex="0">
+
+        <div class="series-header">
+          <h2 class="series-title glitch-text" data-text="LOCAL58">LOCAL58</h2>
+          <p class="series-code">FASCICOLO N. L58-07 // ORIGINE: US // STATO: ATTIVO</p>
+        </div>
+
+        <p class="series-intro">Archivio di trasmissioni recuperate da un'emittente televisiva locale non più identificabile nei registri ufficiali. Il materiale comprende bollettini meteo, interruzioni di programmazione e segmenti destinati apparentemente a un pubblico infantile, tutti riconducibili a un pattern di interferenza ricorrente.</p>
+
+        <div class="panel">
+          <h3 class="panel-title">// MATERIALE VIDEO RECUPERATO</h3>
+          <div class="video-grid">
+            <div class="video-card">
+              <div class="video-embed">
+                <iframe data-src="https://www.youtube.com/embed/VIDEO_ID_7" title="LOCAL58 — Episodio 1" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+              </div>
+              <p class="video-caption">EP. 01 — [Titolo da inserire]</p>
+            </div>
+            <div class="video-card">
+              <div class="video-embed">
+                <iframe data-src="https://www.youtube.com/embed/VIDEO_ID_8" title="LOCAL58 — Episodio 2" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+              </div>
+              <p class="video-caption">EP. 02 — [Titolo da inserire]</p>
+            </div>
+            <div class="video-card">
+              <div class="video-embed">
+                <iframe data-src="https://www.youtube.com/embed/VIDEO_ID_9" title="LOCAL58 — Episodio 3" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+              </div>
+              <p class="video-caption">EP. 03 — [Titolo da inserire]</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3 class="panel-title">// SCHEDE ENTITÀ / FENOMENO</h3>
+
+          <div class="data-sheet">
+            <div class="data-sheet-header">
+              <span class="entity-name">DESIGNAZIONE: L'ONDA</span>
+              <span class="threat-badge threat-critical">MINACCIA: CRITICA</span>
+            </div>
+            <dl class="data-sheet-body">
+              <dt>Descrizione</dt>
+              <dd>Segnale di trasmissione anomalo, ricorrente, in grado di sovrascrivere programmazioni regolari. Si manifesta camuffato all'interno di format apparentemente innocui (meteo, programmi per bambini, allerte di emergenza).</dd>
+              <dt>Comportamento osservato</dt>
+              <dd>Effetti comportamentali riportati negli spettatori esposti per periodi prolungati. Nessuna correlazione confermata con un'area geografica specifica.</dd>
+              <dt>Consigli di sopravvivenza</dt>
+              <dd>Limitare l'esposizione a interruzioni di trasmissione non identificate. Non seguire istruzioni impartite da allerte di emergenza non verificate tramite canale ufficiale. Segnalare tempestivamente qualsiasi anomalia riscontrata.</dd>
+            </dl>
+          </div>
+
+          <div class="data-sheet">
+            <div class="data-sheet-header">
+              <span class="entity-name">SEGMENTO: SERVIZIO METEO</span>
+              <span class="threat-badge threat-moderate">MINACCIA: MODERATA</span>
+            </div>
+            <dl class="data-sheet-body">
+              <dt>Descrizione</dt>
+              <dd>Bollettini meteorologici che, in alcune registrazioni, deviano progressivamente dal formato standard fino a contenere messaggi non correlati alle condizioni atmosferiche.</dd>
+              <dt>Consigli di sopravvivenza</dt>
+              <dd>Interrompere la visione qualora il bollettino ecceda la durata prevista o ripeta la medesima previsione più del necessario.</dd>
+            </dl>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3 class="panel-title">// LOG RECUPERATI</h3>
+          <div class="log-entries">
+            <div class="log-entry">
+              <p class="log-entry-header">DOCUMENTO #L58-002 — REGISTRO TRASMISSIONI</p>
+              <p class="log-entry-body">"L'emittente non risulta registrata presso alcun ente di regolamentazione consultato. Le coordinate di trasmissione dichiarate nei nastri non corrispondono a siti attivi conosciuti."</p>
+            </div>
+            <div class="log-entry">
+              <p class="log-entry-header">DOCUMENTO #L58-019 — NOTA OPERATORE</p>
+              <p class="log-entry-body">"Si sconsiglia la visione integrale del segmento 'per bambini' senza supervisione di un secondo operatore. Il contenuto muta significativamente registrazione dopo registrazione."</p>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ============================================================
+           TAB 5 — CLASSIFIED (protetta da password)
+           ============================================================ -->
+      <section id="classified" class="tab-content" role="tabpanel" aria-labelledby="tabbtn-classified" tabindex="0">
+
+        <div class="password-gate" id="passwordGate">
+          <div class="gate-icon">🔒</div>
+          <h2 class="gate-title">ACCESSO RISERVATO</h2>
+          <p class="gate-text">Questa sezione richiede un codice di autorizzazione di livello superiore. Ogni tentativo, riuscito o meno, viene registrato nel log di sistema.</p>
+
+          <form id="passwordForm" class="password-form" autocomplete="off">
+            <label for="passwordInput" class="visually-hidden">Codice di accesso</label>
+            <input type="password" id="passwordInput" name="passwordInput" placeholder="INSERISCI CODICE" autocomplete="off" spellcheck="false">
+            <button type="submit">CONFERMA</button>
+          </form>
+
+          <p class="gate-error" id="gateError" role="alert" aria-live="polite"></p>
+        </div>
+
+        <div class="classified-content" id="classifiedContent" hidden>
+
+          <div class="series-header">
+            <h2 class="series-title glitch-text" data-text="LIVELLO 5 — MONUMENT">LIVELLO 5 — MONUMENT</h2>
+            <p class="series-code">ACCESSO CONCESSO // OPERATORE VERIFICATO</p>
+          </div>
+
+          <div class="panel panel--classified">
+            <h3 class="panel-title">// DOCUMENTO MONUMENT-00</h3>
+            <p>I fascicoli VC-04, MC-11 e L58-07, catalogati inizialmente come fenomeni indipendenti, presentano correlazioni non casuali nei metadati di recupero: intervalli temporali ricorrenti, firme di degrado del segnale analoghe, e — in tre casi documentati — riferimenti incrociati tra un fascicolo e l'altro all'interno dello stesso nastro.</p>
+            <p>La designazione provvisoria "MONUMENT" indica l'ipotesi di lavoro corrente: un'unica struttura di osservazione, dietro fenomeni apparentemente separati. L'ipotesi non è confermata. Si richiede la massima cautela nella diffusione di questo documento.</p>
+          </div>
+
+          <div class="panel panel--classified">
+            <h3 class="panel-title">// NOTA FINALE DELL'OPERATORE PRECEDENTE</h3>
+            <p class="log-entry-body">"Se stai leggendo questo, il turno è tuo adesso. Non fissare i log corrotti più a lungo del necessario. E se il conteggio dei fascicoli attivi cambia da solo — non hai visto niente. Buon turno, operatore."</p>
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- ============================================================
+         FOOTER — toggle effetto CRT e stato
+         ============================================================ -->
+    <footer class="site-footer">
+      <button id="scanlineToggle" class="scanline-toggle" type="button" aria-pressed="true">
+        DISATTIVA EFFETTO CRT
+      </button>
+      <span class="footer-status">STATO: MONITORAGGIO ATTIVO</span>
+    </footer>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
