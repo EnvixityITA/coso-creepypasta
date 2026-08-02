@@ -140,7 +140,7 @@
   // Codici di accesso — modifica questi array per cambiare le password.
   // Il confronto è case-insensitive (l'input viene messo in minuscolo).
   const CLASSIFIED_CODES = ['1999', 'monument'];
-  const ADMIN_CODES = ['curatore'];
+  const ADMIN_CODES = ['3011'];
 
   setupPasswordGate({
     formId: 'passwordForm',
