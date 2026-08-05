@@ -64,7 +64,7 @@
      -------------------------------------------------------------- */
 
   const FIREBASE_CONFIG = {
-    apiKey: 'INSERISCI_API_KEY',
+    apiKey: '898918488460',
     authDomain: 'creepypasta-48cd8.firebaseapp.com',
     projectId: 'creepypasta-48cd8',
     storageBucket: 'INSERISCI_STORAGE_BUCKET',
